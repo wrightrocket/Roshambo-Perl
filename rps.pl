@@ -8,17 +8,32 @@ use diagnostics;
 
 my (@choices, $wins, $losses, $ties);
 
-sub Init{
+sub init() {
     srand(time);
     @choices = qw(r p s);
     $wins = 0; $losses = 0; $ties = 0; 
-    print "Welcome to Rock, Paper, Scissors!\n\n";
-    print "You will face the computer in this game\n";
-    print "To make a choice, use the first letter of the object:\n";
-    print "r for rock, p for paper, s for scissors, or q to quit\n\n";
+    print << 'END';
+    
+Welcome to Rock, Paper, Scissors!
+
+You will play against the computer in this game.
+To make a choice, use the first letter of the word:
+r for rock, p for paper, s for scissors, or q to quit
+
+END
 }
 
-sub Player() {
+sub bye{
+    print << "END";
+    
+Bye! Thanks for playing Rock, Paper, Scissors!
+
+You had $wins wins, $losses losses and $ties ties.
+
+END
+}
+
+sub player() {
     my $key;
     until (grep {$key} @choices) {
         print "What do you choose (r, p, s, or q) ";
@@ -30,20 +45,14 @@ sub Player() {
     return $key; 
 }
 
-sub Computer() {
+sub computer() {
     my $pick = int(rand($#choices));
     return $choices[$pick];
 }
 
-sub Bye{
-    print "Bye! Thanks for playing Rock, Paper, Scissors!\n\n";
-    print "You had $wins wins, $losses losses and $ties ties.\n";
-}
-
-sub Fight() {
+sub fight() {
     my $user = shift @_;
     my $opponent = shift @_;
-    # print "You chose $user and the computer picked $opponent\n";
     if ($user =~ /^r/i) {
         if ($opponent =~ /^r/i) { 
             print "You both choose Rock, you tied!\n";
@@ -81,17 +90,18 @@ sub Fight() {
     print "\n";
 }
 
-sub Main() {
+sub main() {
+    &init();
     while (1) {
-        my $user = &Player();
+        my $user = &player();
         if ($user =~ /^q/i) {
-            Bye();
+            bye();
             last;
         }
-        my $opponent = &Computer();
-        &Fight($user, $opponent);
+        my $opponent = &computer();
+        &fight($user, $opponent);
     }
 }
 
-Init();
-Main();
+
+main();

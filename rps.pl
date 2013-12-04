@@ -9,6 +9,7 @@ use diagnostics;
 my (@choices, $wins, $losses, $ties);
 
 sub init() {
+    $SIG{INT}=\&bye;
     srand(time);
     @choices = qw(r p s);
     $wins = 0; $losses = 0; $ties = 0; 
@@ -24,17 +25,28 @@ END
 }
 
 sub bye{
+    my ($win_text, $loss_text, $tie_text, $mins, $min_text, $secs, $sec_text);
+    $win_text = ($wins == 1) ? 'win' : 'wins';
+    $loss_text = ($losses == 1) ? 'loss' : 'losses';
+    $tie_text = ($ties == 1) ? 'tie' : 'ties'; 
+    $secs = time - $^T;
+    $mins = ($secs > 59) ? $secs % 60 : 0;
+    $min_text = ($mins == 1) ? 'minute' : 'minutes';
+    $secs = $secs - $mins * 60;
+    $sec_text = ($secs == 1) ? 'second' : 'seconds';
     print << "END";
     
 Bye! Thanks for playing Rock, Paper, Scissors!
+You played for $mins $min_text and $secs $sec_text.
 
-You had $wins wins, $losses losses and $ties ties.
+You had $wins $win_text, $losses $loss_text and $ties $tie_text.
 
 END
+    exit(0);
 }
 
 sub player() {
-    my $key;
+    my $key ='';
     until (grep {$key} @choices) {
         print "What do you choose (r, p, s, or q) ";
         chomp($key = <STDIN>);
@@ -46,7 +58,7 @@ sub player() {
 }
 
 sub computer() {
-    my $pick = int(rand($#choices));
+    my $pick = int(rand(scalar @choices));
     return $choices[$pick];
 }
 
@@ -95,13 +107,11 @@ sub main() {
     while (1) {
         my $user = &player();
         if ($user =~ /^q/i) {
-            bye();
-            last;
+            bye();  
         }
         my $opponent = &computer();
         &fight($user, $opponent);
     }
 }
-
 
 main();

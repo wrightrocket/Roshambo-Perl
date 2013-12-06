@@ -86,26 +86,39 @@ sub gui {
     my $paper_image = $mw -> Pixmap(-data => &paper_pix);
     my $scissors_image = $mw -> Pixmap(-data => &scissors_pix);
     my $title = $mw -> Label(-text => "Rock, Paper, Scissors",
-                            -width => 50) -> pack;
+       -font => '-adobe-helvetica-medium-o-normal--24-240-75-75-p-130-iso8859-1',
+       -width => 50) -> pack;
     my $instructions = $mw -> Label(-text => "Click on an object to play.", 
-                            -width => 50) -> pack;
+       -width => 50) -> pack;
     my $top_frame = $mw -> Frame -> pack(-anchor => 'n');
     my $bot_frame = $mw -> Frame -> pack(-anchor => 's');
     my $rock = $top_frame -> Button(-image => $rock_image, 
-                         -command => sub {&play('r', &versus)}) 
-                         -> pack(-anchor => 'n', 
-                         -expand => 1,
-                         -side => 'left');
+       -command => sub {&play('r', &versus)}) 
+       -> pack(
+       -anchor => 'n', 
+       -padx => 10,
+       -pady => 10,
+       -expand => 1,
+       -side => 'left',
+       );
     my $paper = $top_frame -> Button(-image => $paper_image, 
-                         -command => sub {&play('p', &versus)}) 
-                         -> pack(-anchor => 'n',
-                         -expand => 1,
-                         -side => 'left');              
+       -command => sub {&play('p', &versus)}) 
+       -> pack(
+       -anchor => 'n', 
+       -padx => 10,
+       -pady => 10,
+       -expand => 1,
+       -side => 'left',
+       );             
     my $scissors = $top_frame -> Button(-image => $scissors_image,                      
-                         -command => sub {&play('s', &versus)}) 
-                         -> pack(-anchor => 'n', 
-                         -expand => 1,
-                         -side => 'left'); 
+       -command => sub {&play('s', &versus)}) 
+       -> pack(
+       -anchor => 'n', 
+       -padx => 10,
+       -pady => 10,
+       -expand => 1,
+       -side => 'left',
+       ); 
     $info = $bot_frame -> Label -> pack(-anchor => 's',
                          -side =>'bottom'); 
     $mw -> protocol('WM_DELETE_WINDOW' => sub { Tk::exit });

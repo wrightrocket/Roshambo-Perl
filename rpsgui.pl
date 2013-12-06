@@ -81,14 +81,15 @@ sub gui {
     $wins = 0; $losses = 0; $ties = 0; 
     $mw = MainWindow -> new;
     $mw -> title("Rock, Paper, Scissors");
-    $mw -> geometry('300x150');
+    $mw -> geometry('300x170');  # overall window width
     my $rock_image = $mw -> Pixmap(-data => &rock_pix);
     my $paper_image = $mw -> Pixmap(-data => &paper_pix);
     my $scissors_image = $mw -> Pixmap(-data => &scissors_pix);
     my $title = $mw -> Label(-text => "Rock, Paper, Scissors",
-       -font => '-adobe-helvetica-medium-o-normal--24-240-75-75-p-130-iso8859-1',
+       -font => '-adobe-helvetica-medium-o-bold--24-240-75-75-p-130-iso8859-1',
        -width => 50) -> pack;
     my $instructions = $mw -> Label(-text => "Click on an object to play.", 
+       -font => '-adobe-helvetica-medium-o-normal--14-120-75-75-p-130-iso8859-1',
        -width => 50) -> pack;
     my $top_frame = $mw -> Frame -> pack(-anchor => 'n');
     my $bot_frame = $mw -> Frame -> pack(-anchor => 's');
@@ -119,8 +120,11 @@ sub gui {
        -expand => 1,
        -side => 'left',
        ); 
-    $info = $bot_frame -> Label -> pack(-anchor => 's',
-                         -side =>'bottom'); 
+    $info = $bot_frame -> Label(
+       -font => '-adobe-helvetica-medium-o-normal--14-120-75-75-p-130-iso8859-1',)
+       -> pack(
+       -anchor => 's',
+       -side =>'bottom'); 
     $mw -> protocol('WM_DELETE_WINDOW' => sub { Tk::exit });
     MainLoop;
 }

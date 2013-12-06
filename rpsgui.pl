@@ -267,7 +267,7 @@ static char * scissors_xpm[] = {
 ".	c #231F1E",
 "+	c #565150",
 "@	c #979392",
-"#	c #EFEFED",
+"#	c #FFFFFF",
 "                                                  ",
 "                                                  ",
 "                                                  ",

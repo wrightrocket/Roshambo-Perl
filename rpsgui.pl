@@ -3,7 +3,7 @@
 # By Keith Wright
 # 12/2/2013
 
-require 5.0;
+require 5.0; # specify minimum version
 use strict; # pragma
 use diagnostics; # pragma
 use Tk; # module
@@ -72,6 +72,10 @@ sub status() {
     return $stat;
 }
 
+sub versus() {
+    return $choices[int(rand(scalar @choices))];
+}
+
 sub gui() {
     @choices = qw(r p s);
     $wins = 0; $losses = 0; $ties = 0; 
@@ -88,17 +92,17 @@ sub gui() {
     my $top_frame = $mw -> Frame() -> pack(-anchor => 'n');
     my $bot_frame = $mw -> Frame() -> pack(-anchor => 's');
     my $rock = $top_frame -> Button(-image => $rock_image, 
-                         -command => sub {&play('r', $choices[int(rand(scalar @choices))])}) 
+                         -command => sub {&play('r', &versus())}) 
                          -> pack(-anchor => 'n', 
                          -expand => 1,
                          -side => 'left');
     my $paper = $top_frame -> Button(-image => $paper_image, 
-                         -command => sub {&play('p', $choices[int(rand(scalar @choices))])}) 
+                         -command => sub {&play('p', &versus())}) 
                          -> pack(-anchor => 'n',
                          -expand => 1,
                          -side => 'left');              
     my $scissors = $top_frame -> Button(-image => $scissors_image,                      
-                         -command => sub {&play('s', $choices[int(rand(scalar @choices))])}) 
+                         -command => sub {&play('s', &versus())}) 
                          -> pack(-anchor => 'n', 
                          -expand => 1,
                          -side => 'left'); 

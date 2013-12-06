@@ -81,7 +81,7 @@ sub gui {
     $wins = 0; $losses = 0; $ties = 0; 
     $mw = MainWindow -> new;
     $mw -> title("Rock, Paper, Scissors");
-    $mw -> geometry('300x170');  # overall window width
+    $mw -> geometry('300x170');  # overall window width and height
     my $rock_image = $mw -> Pixmap(-data => &rock_pix);
     my $paper_image = $mw -> Pixmap(-data => &paper_pix);
     my $scissors_image = $mw -> Pixmap(-data => &scissors_pix);

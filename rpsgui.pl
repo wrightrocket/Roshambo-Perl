@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # Rock, Paper, Scissors
 # By Keith Wright
-# 12/2/2013
+# 12/5/2013
 
 require 5.0; # specify minimum version
 use strict; # pragma
@@ -44,10 +44,10 @@ sub play() {
             $ties++;
         } elsif ($opponent =~ /^p/i) {
             $result = "Scissors cut Paper, you win!";
-            $losses++;
+            $wins++;
         } elsif ($opponent =~ /^r/i) {
             $result = "Rock crushes Scissors, you lose!";
-            $wins++;
+            $losses++;
         }
     }
     &inforesult($result);
@@ -106,7 +106,8 @@ sub gui() {
                          -> pack(-anchor => 'n', 
                          -expand => 1,
                          -side => 'left'); 
-    $info = $bot_frame -> Label() -> pack(-anchor => 's', -side =>'bottom'); 
+    $info = $bot_frame -> Label() -> pack(-anchor => 's',
+                         -side =>'bottom'); 
     $mw -> protocol('WM_DELETE_WINDOW' => sub { Tk::exit });
     MainLoop();
 }

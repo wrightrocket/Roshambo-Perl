@@ -97,10 +97,10 @@ sub play() {
             $ties++;
         } elsif ($opponent =~ /^p/i) {
             print "Scissors cut Paper, you win!";
-            $losses++;
+            $wins++;
         } elsif ($opponent =~ /^r/i) {
             print "Rock crushes Scissors, you lose!";
-            $wins++;
+            $losses++;
         }
     }
 }

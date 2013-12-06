@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # Rock, Paper, Scissors
-# By Keith Wright
+# By Keith Owens Wright
 # 12/5/2013
 
 require 5.0; # specify minimum version
@@ -8,11 +8,11 @@ use strict; # pragma
 use diagnostics; # pragma
 use Tk; # module
 
-&gui(); # start the main routine
+&gui; # start the main routine
 
 my (@choices, $wins, $losses, $ties, $mw, $info,);
 
-sub play() {
+sub play {
     my $result = '';
     my $user = shift @_;
     my $opponent = shift @_;
@@ -53,17 +53,17 @@ sub play() {
     &inforesult($result);
 }
 
-sub inforesult() {
+sub inforesult {
     my $result = shift @_;
     # print $result;
     $info -> configure(-text => $result);
-    $mw -> update();
+    $mw -> update;
     sleep 2;
-    $info -> configure(-text => &status());
-    $mw -> update();
+    $info -> configure(-text => &status);
+    $mw -> update;
 }
 
-sub status() {
+sub status {
     my ($win_text, $loss_text, $tie_text);
     $win_text = ($wins == 1) ? 'win' : 'wins';
     $loss_text = ($losses == 1) ? 'loss' : 'losses';
@@ -72,47 +72,47 @@ sub status() {
     return $stat;
 }
 
-sub versus() {
-    return $choices[int(rand(scalar @choices))];
+sub versus {
+    return $choices[int(rand(scalar(@choices)))];
 }
 
-sub gui() {
+sub gui {
     @choices = qw(r p s);
     $wins = 0; $losses = 0; $ties = 0; 
-    $mw = MainWindow -> new();
+    $mw = MainWindow -> new;
     $mw -> title("Rock, Paper, Scissors");
     $mw -> geometry('300x150');
-    my $rock_image = $mw -> Pixmap(-data => &rock_pix());
-    my $paper_image = $mw -> Pixmap(-data => &paper_pix());
-    my $scissors_image = $mw -> Pixmap(-data => &scissors_pix());
+    my $rock_image = $mw -> Pixmap(-data => &rock_pix);
+    my $paper_image = $mw -> Pixmap(-data => &paper_pix);
+    my $scissors_image = $mw -> Pixmap(-data => &scissors_pix);
     my $title = $mw -> Label(-text => "Rock, Paper, Scissors",
-                            -width => 50) -> pack();
+                            -width => 50) -> pack;
     my $instructions = $mw -> Label(-text => "Click on an object to play.", 
-                            -width => 50) -> pack();
-    my $top_frame = $mw -> Frame() -> pack(-anchor => 'n');
-    my $bot_frame = $mw -> Frame() -> pack(-anchor => 's');
+                            -width => 50) -> pack;
+    my $top_frame = $mw -> Frame -> pack(-anchor => 'n');
+    my $bot_frame = $mw -> Frame -> pack(-anchor => 's');
     my $rock = $top_frame -> Button(-image => $rock_image, 
-                         -command => sub {&play('r', &versus())}) 
+                         -command => sub {&play('r', &versus)}) 
                          -> pack(-anchor => 'n', 
                          -expand => 1,
                          -side => 'left');
     my $paper = $top_frame -> Button(-image => $paper_image, 
-                         -command => sub {&play('p', &versus())}) 
+                         -command => sub {&play('p', &versus)}) 
                          -> pack(-anchor => 'n',
                          -expand => 1,
                          -side => 'left');              
     my $scissors = $top_frame -> Button(-image => $scissors_image,                      
-                         -command => sub {&play('s', &versus())}) 
+                         -command => sub {&play('s', &versus)}) 
                          -> pack(-anchor => 'n', 
                          -expand => 1,
                          -side => 'left'); 
-    $info = $bot_frame -> Label() -> pack(-anchor => 's',
+    $info = $bot_frame -> Label -> pack(-anchor => 's',
                          -side =>'bottom'); 
     $mw -> protocol('WM_DELETE_WINDOW' => sub { Tk::exit });
-    MainLoop();
+    MainLoop;
 }
 
-sub rock_pix() {
+sub rock_pix {
 my $rock_data = << "END_ROCK";
 /* XPM */
 static char * rock_xpm[] = {
@@ -176,7 +176,7 @@ END_ROCK
 return $rock_data;
 };
 
-sub paper_pix() {
+sub paper_pix {
 my $paper_data = << "END_PAPER";
 /* XPM */
 static char * paper_xpm[] = {
@@ -241,7 +241,7 @@ END_PAPER
 return $paper_data;
 }
 
-sub scissors_pix() {
+sub scissors_pix {
 my $scissors_data = << "END_SCISSORS";
 /* XPM */
 static char * scissors_xpm[] = {

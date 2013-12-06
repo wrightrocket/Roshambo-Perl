@@ -5,11 +5,13 @@
 
 use strict;
 use diagnostics;
+require 5.0;
 
 my (@choices, $wins, $losses, $ties);
 
 sub init() {
     $SIG{INT}=\&bye;
+    $SIG{TERM}=\&bye;
     srand(time);
     @choices = qw(r p s);
     $wins = 0; $losses = 0; $ties = 0; 
@@ -37,6 +39,7 @@ sub bye{
     print << "END";
     
 Bye! Thanks for playing Rock, Paper, Scissors!
+
 You played for $mins $min_text and $secs $sec_text.
 
 You had $wins $win_text, $losses $loss_text and $ties $tie_text.
@@ -62,44 +65,44 @@ sub computer() {
     return $choices[$pick];
 }
 
-sub fight() {
+sub play() {
+    local $\="\n\n";
     my $user = shift @_;
     my $opponent = shift @_;
     if ($user =~ /^r/i) {
         if ($opponent =~ /^r/i) { 
-            print "You both choose Rock, you tied!\n";
+            print "You both choose Rock, you tied!";
             $ties++;
         } elsif ($opponent =~ /^p/i) {
-            print "Paper covers Rock, you lose!\n";
+            print "Paper covers Rock, you lose!";
             $losses++;
         } elsif ($opponent =~ /^s/i) {
-            print "Rock crushes Scissors, you win!\n";
+            print "Rock crushes Scissors, you win!";
             $wins++;
         }
     } elsif ($user =~ /^p/i) {
         if ($opponent =~ /^p/i) { 
-            print "You both choose Paper, you tied!\n";
+            print "You both choose Paper, you tied!";
             $ties++;
         } elsif ($opponent =~ /^r/i) {
-            print "Paper covers Rock, you win!\n";
-            $losses++;
-        } elsif ($opponent =~ /^s/i) {
-            print "Rock crushes Scissors, you lose!\n";
+            print "Paper covers Rock, you win!";
             $wins++;
+        } elsif ($opponent =~ /^s/i) {
+            print "Scissors cut Paper, you lose!";
+            $losses++;
         }
     } elsif ($user =~ /^s/i) {
         if ($opponent =~ /^s/i) { 
-            print "You both choose Scissors, you Tied!\n";
+            print "You both choose Scissors, you Tied!";
             $ties++;
         } elsif ($opponent =~ /^p/i) {
-            print "Scissors cut Paper, you win!\n";
+            print "Scissors cut Paper, you win!";
             $losses++;
         } elsif ($opponent =~ /^r/i) {
-            print "Rock crushes Scissors, you lose!\n";
+            print "Rock crushes Scissors, you lose!";
             $wins++;
         }
     }
-    print "\n";
 }
 
 sub main() {
@@ -110,7 +113,7 @@ sub main() {
             bye();  
         }
         my $opponent = &computer();
-        &fight($user, $opponent);
+        &play($user, $opponent);
     }
 }
 

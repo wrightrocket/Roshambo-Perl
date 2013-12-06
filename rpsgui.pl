@@ -3,20 +3,16 @@
 # By Keith Wright
 # 12/2/2013
 
-use strict;
-use diagnostics;
 require 5.0;
-use Tk;
+use strict; # pragma
+use diagnostics; # pragma
+use Tk; # module
 
-&gui();
+&gui(); # start the main routine
 
-my (@choices, $wins, $losses, $ties, 
-    $mw, $rock, $paper, $scissors, $info,
-    $rock_data, $paper_data, $scissors_data);
-
+my (@choices, $wins, $losses, $ties, $mw, $info,);
 
 sub play() {
-    local $\="\n\n";
     my $result = '';
     my $user = shift @_;
     my $opponent = shift @_;
@@ -55,12 +51,11 @@ sub play() {
         }
     }
     &inforesult($result);
-
 }
 
 sub inforesult() {
     my $result = shift @_;
-    print $result;
+    # print $result;
     $info -> configure(-text => $result);
     $mw -> update();
     sleep 2;
@@ -82,7 +77,7 @@ sub gui() {
     $wins = 0; $losses = 0; $ties = 0; 
     $mw = MainWindow -> new();
     $mw -> title("Rock, Paper, Scissors");
-    $mw -> geometry('250x120');
+    $mw -> geometry('300x150');
     my $rock_image = $mw -> Pixmap(-data => &rock_pix());
     my $paper_image = $mw -> Pixmap(-data => &paper_pix());
     my $scissors_image = $mw -> Pixmap(-data => &scissors_pix());
@@ -92,28 +87,28 @@ sub gui() {
                             -width => 50) -> pack();
     my $top_frame = $mw -> Frame() -> pack(-anchor => 'n');
     my $bot_frame = $mw -> Frame() -> pack(-anchor => 's');
-    $rock = $top_frame -> Button(-image => $rock_image, 
+    my $rock = $top_frame -> Button(-image => $rock_image, 
                          -command => sub {&play('r', $choices[int(rand(scalar @choices))])}) 
                          -> pack(-anchor => 'n', 
                          -expand => 1,
                          -side => 'left');
-    $paper = $top_frame -> Button(-image => $paper_image, 
+    my $paper = $top_frame -> Button(-image => $paper_image, 
                          -command => sub {&play('p', $choices[int(rand(scalar @choices))])}) 
                          -> pack(-anchor => 'n',
                          -expand => 1,
                          -side => 'left');              
-    $scissors = $top_frame -> Button(-image => $scissors_image,                      
+    my $scissors = $top_frame -> Button(-image => $scissors_image,                      
                          -command => sub {&play('s', $choices[int(rand(scalar @choices))])}) 
                          -> pack(-anchor => 'n', 
                          -expand => 1,
                          -side => 'left'); 
     $info = $bot_frame -> Label() -> pack(-anchor => 's', -side =>'bottom'); 
-    $mw -> protocol('WM_DELETE_WINDOW' => sub { exit });
+    $mw -> protocol('WM_DELETE_WINDOW' => sub { Tk::exit });
     MainLoop();
 }
 
 sub rock_pix() {
-$rock_data = << "END_ROCK";
+my $rock_data = << "END_ROCK";
 /* XPM */
 static char * rock_xpm[] = {
 "50 50 5 1",

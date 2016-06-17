@@ -75,6 +75,7 @@ sub play() {
     local $\="\n\n";
     my $user = shift @_;
     my $opponent = shift @_;
+    print "\n\n";
     if ($user =~ /^r/i) {
         if ($opponent =~ /^r/i) { 
             print "You both choose Rock, you tied!";

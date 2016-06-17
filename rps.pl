@@ -8,6 +8,9 @@ use diagnostics;
 require 5.0;
 
 my (@choices, $wins, $losses, $ties);
+my ($win_text, $loss_text, $tie_text, $mins, $min_text, $secs, $sec_text);
+
+&main();
 
 sub init() {
     $SIG{INT}=\&bye;
@@ -26,8 +29,7 @@ r for rock, p for paper, s for scissors, or q to quit
 END
 }
 
-sub bye{
-    my ($win_text, $loss_text, $tie_text, $mins, $min_text, $secs, $sec_text);
+sub status {
     $win_text = ($wins == 1) ? 'win' : 'wins';
     $loss_text = ($losses == 1) ? 'loss' : 'losses';
     $tie_text = ($ties == 1) ? 'tie' : 'ties'; 
@@ -38,13 +40,16 @@ sub bye{
     $sec_text = ($secs == 1) ? 'second' : 'seconds';
     print << "END";
     
-Bye! Thanks for playing Rock, Paper, Scissors!
+You have played for $mins $min_text and $secs $sec_text.
 
-You played for $mins $min_text and $secs $sec_text.
-
-You had $wins $win_text, $losses $loss_text and $ties $tie_text.
+You have $wins $win_text, $losses $loss_text and $ties $tie_text.
 
 END
+
+};
+sub bye{
+    &status;
+    print "Bye! Thanks for playing Rock, Paper, Scissors!\n\n";
     exit(0);
 }
 
@@ -103,6 +108,7 @@ sub play() {
             $losses++;
         }
     }
+    &status;
 }
 
 sub main() {
@@ -117,4 +123,3 @@ sub main() {
     }
 }
 
-main();

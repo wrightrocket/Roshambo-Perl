@@ -40,6 +40,7 @@ sub status {
     $secs = $secs - $mins * 60;
     $sec_text = ($secs == 1) ? 'second' : 'seconds';
     print << "END";
+
     
 You have played for $mins $min_text and $secs $sec_text.
 
@@ -72,10 +73,10 @@ sub computer() {
 }
 
 sub play() {
-    local $\="\n\n";
+    local $\="\n";
+    print "\n";
     my $user = shift @_;
     my $opponent = shift @_;
-    print "\n\n";
     if ($user =~ /^r/i) {
         if ($opponent =~ /^r/i) { 
             print "You both choose Rock, you tied!";

@@ -1,4 +1,4 @@
 Roshambo-Perl
 =============
-Rock, Paper, Scissors written in Perl
+Rock, Paper, Scissors, Lizard, Spock written in Perl
 

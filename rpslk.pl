@@ -5,8 +5,7 @@ use warnings;
 use strict;
 use Game::RockPaperScissorsLizardSpock;
 my $PLAYER1_WINS=\1; # read-only reference
-#my $PLAYER2_WINS=\2; # unneeded
-my $PLAYERS_TIE=\3;
+my $PLAYERS_TIE=\0;
 my ($human, $computer, $result, $wins, $losses, $ties)=(0,0,0,0,0,0);
 my @choices = qw(r p s l k);
 my %choices = 
